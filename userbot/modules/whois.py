@@ -25,7 +25,7 @@ async def who(event):
         if event.fwd_from:
             return
 
-        await event.edit("`Fetching user info, please wait !!`")
+        await event.edit("`Stealing Data from facebook...`")
         
         if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
             os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -96,7 +96,7 @@ async def fetch_info(replied_user, event):
         max_id=0,
         limit=80
     ))
-    replied_user_profile_photos_count = "NaN"
+    replied_user_profile_photos_count = "Person so ugly, Telegram declined them from adding pfps"
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
     except AttributeError as e:
@@ -107,7 +107,7 @@ async def fetch_info(replied_user, event):
     try:
         dc_id, location = get_input_location(replied_user.profile_photo)
     except Exception as e:
-        dc_id = "Cannot fetch DC ID !!"
+        dc_id = "Couldn't fetch DC ID!"
         location = str(e)
     common_chat = replied_user.common_chats_count
     username = replied_user.user.username
@@ -128,7 +128,7 @@ async def fetch_info(replied_user, event):
         "This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
     
-    caption = "<b>USER INFO:</b>\n"
+    caption = "<b>USER INFO:</b>\n\n"
     caption += f"First Name: {first_name}\n"
     caption += f"Last Name: {last_name}\n"
     caption += f"Username: {username}\n"
