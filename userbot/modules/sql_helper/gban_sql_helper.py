@@ -23,7 +23,7 @@ def get_gban():
 
 def is_gban(chat_id):
     try:
-        return SESSION.query(GBan).filter(GBan.chat_id == str(chat_id)).one()
+        return SESSION.query(GBan).filter(GBan.chat_id == int(chat_id)).one()
     except:
         return None
     finally:
@@ -31,13 +31,13 @@ def is_gban(chat_id):
 
 
 def add_chat_gban(chat_id):
-    adder = GBan(str(chat_id))
+    adder = GBan(int(chat_id))
     SESSION.add(adder)
     SESSION.commit()
 
 
 def remove_chat_gban(chat_id):
-    rem = SESSION.query(GBan).get(str(chat_id))
+    rem = SESSION.query(GBan).get(int(chat_id))
     if rem:
         SESSION.delete(rem)
         SESSION.commit()
