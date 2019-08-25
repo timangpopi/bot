@@ -49,13 +49,14 @@ RUN apk add --no-cache --update \
     wget \
     python3 \
     python3-dev \
+    py3-virtualenv \
     readline-dev \
     sqlite \
     sqlite-dev \
     sudo \
     zlib-dev
 
-RUN pip3 install --upgrade pip setuptools
+RUN pip3 install --upgrade pip virtualenv setuptools
 
 # Copy Python Requirements to /app
 
@@ -84,8 +85,9 @@ ENV PATH="/home/userbot/bin:$PATH"
 #
 # Install requirements
 #
-RUN sudo pip3 install -r requirements.txt
 ADD . /home/userbot/userbot
+#RUN sudo pip3 install -r requirements.txt
+RUN virtualenv /env && /env/bin/pip3 install -r /app/requirements.txt
 RUN sudo chown -R userbot /home/userbot/userbot
 RUN sudo chmod -R 777 /home/userbot/userbot
-CMD ["python3","-m","userbot"]
+CMD ["/env/bin/python3","-m","userbot"]
