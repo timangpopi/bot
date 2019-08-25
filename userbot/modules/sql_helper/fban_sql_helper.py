@@ -7,7 +7,7 @@ from sqlalchemy import Column, Integer, distinct, func
 
 class FBan(BASE):
     __tablename__ = "fban"
-    chat_id = Column(Integer(14), primary_key=True)
+    chat_id = Column(Integer(), primary_key=True)
 
     def __init__(self, chat_id):
         self.chat_id = int(chat_id)  # ensure int
