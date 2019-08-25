@@ -2,15 +2,15 @@ try:
     from userbot.modules.sql_helper import SESSION, BASE
 except ImportError:
     raise AttributeError
-from sqlalchemy import Column, String, UnicodeText, Boolean, Integer, distinct, func
+from sqlalchemy import Column, Integer, distinct, func
 
 
 class GBan(BASE):
     __tablename__ = "gban"
-    chat_id = Column(String(14), primary_key=True)
+    chat_id = Column(Integer(14), primary_key=True)
 
     def __init__(self, chat_id):
-        self.chat_id = str(chat_id)  # ensure string
+        self.chat_id = int(chat_id)  # ensure int
 
 
 GBan.__table__.create(checkfirst=True)
