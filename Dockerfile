@@ -87,7 +87,7 @@ ENV PATH="/home/userbot/bin:$PATH"
 #
 ADD . /home/userbot/userbot
 #RUN sudo pip3 install -r requirements.txt
-RUN virtualenv /env && /env/bin/pip3 install -r /app/requirements.txt
+RUN virtualenv /home/userbot/env && /home/userbot/env/bin/pip3 install -r /app/requirements.txt
 RUN sudo chown -R userbot /home/userbot/userbot
 RUN sudo chmod -R 777 /home/userbot/userbot
-CMD ["/env/bin/python3","-m","userbot"]
+CMD ["/home/userbot/env/bin/python3","-m","userbot"]
