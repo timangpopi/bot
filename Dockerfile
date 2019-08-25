@@ -84,9 +84,8 @@ ENV PATH="/home/userbot/bin:$PATH"
 #
 # Install requirements
 #
-RUN sudo pip3 install -r requirements.txt
+RUN pip3 install --user -r requirements.txt
 ADD . /home/userbot/userbot
 RUN sudo chown -R userbot /home/userbot/userbot
 RUN sudo chmod -R 777 /home/userbot/userbot
-RUN sudo chmod -R 777 /usr/lib/python3.7/site-packages
 CMD ["python3","-m","userbot"]
