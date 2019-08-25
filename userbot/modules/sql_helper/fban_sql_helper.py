@@ -10,7 +10,7 @@ class FBan(BASE):
     chat_id = Column(Integer(14), primary_key=True)
 
     def __init__(self, chat_id):
-        self.chat_id = str(chat_id)  # ensure string
+        self.chat_id = int(chat_id)  # ensure int
 
 
 FBan.__table__.create(checkfirst=True)
