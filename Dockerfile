@@ -64,6 +64,7 @@ RUN adduser userbot --disabled-password --home /home/userbot
 RUN adduser userbot wheel
 USER userbot
 RUN mkdir /home/userbot/userbot
+RUN mkdir /home/userbot/.local/bin
 RUN mkdir /home/userbot/bin
 RUN git clone https://github.com/AvinashReddy3108/PaperplaneExtended /home/userbot/userbot
 WORKDIR /home/userbot/userbot
