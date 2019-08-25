@@ -64,7 +64,6 @@ RUN adduser userbot --disabled-password --home /home/userbot
 RUN adduser userbot wheel
 USER userbot
 RUN mkdir /home/userbot/userbot
-RUN mkdir /home/userbot/.local/bin
 RUN mkdir /home/userbot/bin
 RUN git clone https://github.com/AvinashReddy3108/PaperplaneExtended /home/userbot/userbot
 WORKDIR /home/userbot/userbot
@@ -80,12 +79,12 @@ COPY ./sample_config.env ./userbot.session* ./config.env* /home/userbot/userbot/
 #
 RUN curl -s https://raw.githubusercontent.com/yshalsager/megadown/master/megadown -o /home/userbot/bin/megadown && sudo chmod a+x /home/userbot/bin/megadown
 RUN curl -s https://raw.githubusercontent.com/yshalsager/cmrudl.py/master/cmrudl.py -o /home/userbot/bin/cmrudl && sudo chmod a+x /home/userbot/bin/cmrudl
-ENV PATH="/home/userbot/.local/bin:/home/userbot/bin:$PATH"
+ENV PATH="/home/userbot/bin:$PATH"
 
 #
 # Install requirements
 #
-RUN pip3 install --user -r requirements.txt
+RUN sudo pip3 install -r requirements.txt
 ADD . /home/userbot/userbot
 RUN sudo chown -R userbot /home/userbot/userbot
 RUN sudo chmod -R 777 /home/userbot/userbot
