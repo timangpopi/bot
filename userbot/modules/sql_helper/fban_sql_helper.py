@@ -23,7 +23,7 @@ def get_fban():
 
 def is_fban(chat_id):
     try:
-        return SESSION.query(FBan).filter(FBan.chat_id == str(chat_id)).one()
+        return SESSION.query(FBan).filter(FBan.chat_id == int(chat_id)).one()
     except:
         return None
     finally:
@@ -31,13 +31,13 @@ def is_fban(chat_id):
 
 
 def add_chat_fban(chat_id):
-    adder = FBan(str(chat_id))
+    adder = FBan(int(chat_id))
     SESSION.add(adder)
     SESSION.commit()
 
 
 def remove_chat_fban(chat_id):
-    rem = SESSION.query(FBan).get(str(chat_id))
+    rem = SESSION.query(FBan).get(int(chat_id))
     if rem:
         SESSION.delete(rem)
         SESSION.commit()
