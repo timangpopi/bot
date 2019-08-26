@@ -96,7 +96,7 @@ def errors_handler(func):
             if BOTLOG:
                 await errors.client.send_file(
                     BOTLOG_CHATID,
-                    "userbot_error.log",
+                    "error.log",
                     caption=text,
                 )
                 return
