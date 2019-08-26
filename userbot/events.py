@@ -8,7 +8,7 @@
 
 from telethon import events
 import asyncio
-from userbot import bot
+from userbot import bot, BOTLOG, BOTLOG_CHATID
 from traceback import format_exc
 from time import gmtime, strftime
 import math
@@ -52,16 +52,16 @@ def errors_handler(func):
             }
 
             text = "**Sorry, I encountered a error!**\n"
-            link = "[https://t.me/PaperplaneExtendedChat](Paperplane Extended Support)"
+            link = "[here](https://t.me/PaperplaneExtendedSupport)"
             text += "If you wanna you can report it"
-            text += f"- just forward this message to {link}.\n"
+            text += f"- just forward this message {link}.\n"
             text += "I won't log anything except the fact of error and date\n"
 
-            ftext = "\nDisclaimer:\nThis file uploaded ONLY here, "
-            ftext += "we logged only fact of error and date, "
-            ftext += "we respect your privacy, "
-            ftext += "you may not report this error if you've "
-            ftext += "any confidential data here, noone will see your data\n\n"
+            ftext = "\nDisclaimer:\nThis file uploaded ONLY here,"
+            ftext += "\nwe logged only fact of error and date,"
+            ftext += "\nwe respect your privacy,"
+            ftext += "\nyou may not report this error if you've"
+            ftext += "\nany confidential data here, no one will see your data\n\n"
             ftext += "--------BEGIN USERBOT TRACEBACK LOG--------"
             ftext += "\nDate: " + date
             ftext += "\nGroup ID: " + str(errors.chat_id)
@@ -93,11 +93,12 @@ def errors_handler(func):
             file.write(ftext)
             file.close()
 
-            await errors.client.send_file(
-                errors.chat_id,
-                "error.log",
-                caption=text,
-            )
-            return
+            if BOTLOG:
+                await errors.client.send_file(
+                    BOTLOG_CHATID,
+                    "userbot_error.log",
+                    caption=text,
+                )
+                return
 
     return wrapper
