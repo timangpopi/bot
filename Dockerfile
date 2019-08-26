@@ -89,4 +89,4 @@ ADD . /home/userbot/userbot
 RUN pip3 install --user -r requirements.txt
 RUN sudo chown -R userbot /home/userbot/userbot
 RUN sudo chmod -R 777 /home/userbot/userbot
-CMD [". /home/userbot/env/bin/activate","python3 -m","userbot"]
+CMD ["python3","-m","userbot"]
