@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 #
 
-from userbot import bot, CMD_HELP
+from userbot import CMD_HELP
 from userbot.events import register, errors_handler
 from telethon.tl.types import MessageEntityMentionName
 import asyncio
@@ -58,7 +58,7 @@ async def gban_all(msg):
         for i in x:
             banlist.append(i.chat_id)
         for banbot in banlist:
-            async with bot.conversation(banbot) as conv:
+            async with msg.client.conversation(banbot) as conv:
                 if textx:
                     c=await msg.forward_to(banbot)
                     await c.reply("/id")
@@ -134,7 +134,7 @@ async def fedban_all(msg):
                 else:
                     await msg.reply("`Spam message detected. But no reply message, can't forward to spamwatch`")
               continue
-            async with bot.conversation(bangroup) as conv:
+            async with msg.client.conversation(bangroup) as conv:
                 await conv.send_message(f"!fban {banid} {banreason}")
                 resp = await conv.get_response()
                 await bot.send_read_acknowledge(conv.chat_id)
@@ -164,8 +164,11 @@ async def add_to_fban(chat):
     except AttributeError:
         await msg.edit("`Running on Non-SQL mode!`")
         return
-    add_chat_fban(chat.chat_id)
-    await chat.edit("`Added this chat under the Fbanlist!`")
+    try:
+        add_chat_fban(chat.chat_id)
+        await chat.edit("`Added this chat under the Fbanlist!`")
+    except:
+        await chat.edit("`Chat already under the Fbanlist!`")
 
 
 @register(outgoing=True, pattern="^.addgban")
@@ -176,9 +179,12 @@ async def add_to_gban(chat):
     except AttributeError:
         await msg.edit("`Running on Non-SQL mode!`")
         return
-    add_chat_gban(chat.chat_id)
-    print(chat.chat_id)
-    await chat.edit("`Added this bot under the Gbanlist!`")
+    try:
+        add_chat_gban(chat.chat_id)
+        await chat.edit("`Added this bot under the Gbanlist!`")
+        print(chat.chat_id)
+    except:
+        await chat.edit("`Bot already under the Gbanlist!`")
 
 
 @register(outgoing=True, pattern="^.removefban")
@@ -189,8 +195,11 @@ async def remove_from_fban(chat):
     except AttributeError:
         await msg.edit("`Running on Non-SQL mode!`")
         return
-    remove_chat_fban(chat.chat_id)
-    await chat.edit("`Removed this chat from the Fbanlist!`")
+    try:
+        remove_chat_fban(chat.chat_id)
+        await chat.edit("`Removed this chat from the Fbanlist!`")
+    except:
+        await chat.edit("`This chat isn't part of the Fbanlist!`")
 
 
 @register(outgoing=True, pattern="^.removegban")
@@ -201,8 +210,11 @@ async def remove_from_gban(chat):
     except AttributeError:
         await msg.edit("`Running on Non-SQL mode!`")
         return
-    remove_chat_gban(chat.chat_id)
-    await chat.edit("`Removed this bot from the Gbanlist!`")
+    try:
+        remove_chat_gban(chat.chat_id)
+        await chat.edit("`Removed this bot from the Gbanlist!`")
+    except:
+        await chat.edit("`This bot isn't part of the Gbanlist!`")
 
 
 CMD_HELP.update({"gbanall" : """.gban\n
