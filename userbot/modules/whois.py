@@ -25,7 +25,7 @@ async def who(event):
         if event.fwd_from:
             return
 
-        await event.edit("`Stealing Data from facebook...`")
+        await event.edit("`Sit tight while I steal some data from Mark Zuckerburg...`")
         
         if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
             os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
@@ -96,7 +96,7 @@ async def fetch_info(replied_user, event):
         max_id=0,
         limit=80
     ))
-    replied_user_profile_photos_count = "Person so ugly, Telegram declined them from adding pfps"
+    replied_user_profile_photos_count = "Person needs help with uploading profile picture."
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
     except AttributeError as e:
