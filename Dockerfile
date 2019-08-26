@@ -83,7 +83,6 @@ ENV PATH="/home/userbot/bin:$PATH"
 #
 # Install requirements
 #
-# RUN sudo pip3 install --upgrade pip setuptools
 RUN sudo pip3 install -r requirements.txt
 ADD . /home/userbot/userbot
 RUN sudo chown -R $(whoami) /usr/lib/python3.7/site-packages
